@@ -183,6 +183,17 @@ class ItemScrollController {
   /// If `false`, then [jumpTo] and [scrollTo] must not be called.
   bool get isAttached => _scrollableListState != null;
 
+  ScrollController? get _primaryScrollController {
+    assert(isAttached);
+    return _scrollableListState?.primary.scrollController ?? null;
+  }
+
+  bool get isPrimaryScrollAtTheTop => primaryScrollOffset == 0;
+
+  bool get isPrimaryScrollAtTheBottom => primaryScrollOffset == _primaryScrollController.position.maxScrollExtent;
+
+  double get primaryScrollOffset => _primaryScrollController.offset;
+
   _ScrollablePositionedListState? _scrollableListState;
 
   /// Immediately, without animation, reconfigure the list so that the item at
